@@ -87,7 +87,7 @@ def get_pie_chart(entered_site):
             names=['Failure','Sucess'],
             title='Success/Failure ratio at CCAFS LC-40 Launch Site')
             fig.update_layout(title_font_size=20, legend_font_size=16, font_size=12),
-            fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black")
+            fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black", marker=dict(colors=['#DC3912','#2CA02C']))
             return fig
         else:
             if entered_site == 'SLC40':
@@ -96,7 +96,7 @@ def get_pie_chart(entered_site):
                 names=['Failure','Sucess'], 
                 title='Success/Failure ratio at CCAFS SLC-40 Launch Site')
                 fig.update_layout(title_font_size=20, legend_font_size=16, font_size=12),
-                fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black")
+                fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black", marker=dict(colors=['#DC3912','#2CA02C']))
                 return fig
             else:
                 if entered_site == 'LC39A':
@@ -105,7 +105,7 @@ def get_pie_chart(entered_site):
                     names=['Failure','Sucess'], 
                     title='Success/Failure ratio at KSC LC-39A Launch Site')
                     fig.update_layout(title_font_size=20, legend_font_size=16, font_size=12),
-                    fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black")
+                    fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black", marker=dict(colors=['#DC3912','#2CA02C']))
                     return fig
                 else:
                     if entered_site == 'SLC4E':
@@ -114,7 +114,7 @@ def get_pie_chart(entered_site):
                         names=['Failure','Sucess'],
                         title='Success/Failure ratio at VAFB SLC-4E Launch Site')
                         fig.update_layout(title_font_size=20, legend_font_size=16, font_size=12),
-                        fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black")
+                        fig.update_traces(textposition='inside', textfont_size=12, textfont_family="Arial Black", marker=dict(colors=['#DC3912','#2CA02C']))
                         return fig
     # return the outcomes piechart for a selected site
 
