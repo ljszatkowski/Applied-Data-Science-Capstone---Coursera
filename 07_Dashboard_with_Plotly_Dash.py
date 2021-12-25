@@ -42,13 +42,23 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                 html.Div(dcc.Graph(id='success-pie-chart')),
                                 html.Br(),
 
-                                html.P("Payload range (Kg):"),
+                                html.P("Payload range:", style ={'font-size': '20px'}, pad: { l: 130, t: 55 }),
                                 # TASK 3: Add a slider to select payload range
                                 #dcc.RangeSlider(id='payload-slider',...)
                                 html.P(dcc.RangeSlider(id='payload-slider',
-                                    min=0, max=10000, step=1000,
-                                    marks={0: '0',10000: '10000'},
-                                    value=[min_payload, max_payload])
+                                    min=0, max=10000, step=500,
+                                    marks={0: {'label': '0 kg', 'style': {'font-size': '14px'}},
+                                        1000: {'label': '1000 kg', 'style': {'font-size': '14px'}},
+                                        2000: {'label': '2000 kg', 'style': {'font-size': '14px'}},
+                                        3000: {'label': '3000 kg', 'style': {'font-size': '14px'}},
+                                        4000: {'label': '4000 kg', 'style': {'font-size': '14px'}},
+                                        5000: {'label': '5000 kg', 'style': {'font-size': '14px'}},
+                                        6000: {'label': '6000 kg', 'style': {'font-size': '14px'}},
+                                        7000: {'label': '7000 kg', 'style': {'font-size': '14px'}},
+                                        8000: {'label': '8000 kg', 'style': {'font-size': '14px'}},
+                                        9000: {'label': '9000 kg', 'style': {'font-size': '14px'}},
+                                        10000: {'label': '10000 kg', 'style': {'font-size': '14px'}}},
+                                    value=[0, 10000])
                                 ),
 
                                 # TASK 4: Add a scatter chart to show the correlation between payload and launch success
@@ -65,7 +75,10 @@ def get_pie_chart(entered_site):
     if entered_site == 'ALL':
         fig = px.pie(spacex_df, values='class', 
         names='Launch Site', 
-        title='Total Success Launches by Site')
+        title='Total Success Launches by Site',
+        )
+        fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16),
+        fig.update_traces(textposition='inside', textfont_size=14, textfont_family="Arial Black")
         return fig
     else:
         if entered_site == 'LC40':
@@ -73,6 +86,8 @@ def get_pie_chart(entered_site):
             values='Launch Site', 
             names=['Failure','Sucess'],
             title='Total Success Launches at CCAFS LC-40 Launch Site')
+            fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16),
+            fig.update_traces(textposition='inside', textfont_size=14, textfont_family="Arial Black")
             return fig
         else:
             if entered_site == 'SLC40':
@@ -80,6 +95,8 @@ def get_pie_chart(entered_site):
                 values='Launch Site', 
                 names=['Failure','Sucess'], 
                 title='Total Success Launches at CCAFS SLC-40 Launch Site')
+                fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16),
+                fig.update_traces(textposition='inside', textfont_size=14, textfont_family="Arial Black")
                 return fig
             else:
                 if entered_site == 'LC39A':
@@ -87,6 +104,8 @@ def get_pie_chart(entered_site):
                     values='Launch Site',
                     names=['Failure','Sucess'], 
                     title='Total Success Launches at KSC LC-39A Launch Site')
+                    fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16),
+                    fig.update_traces(textposition='inside', textfont_size=14, textfont_family="Arial Black")
                     return fig
                 else:
                     if entered_site == 'SLC4E':
@@ -94,6 +113,8 @@ def get_pie_chart(entered_site):
                         values='Launch Site', 
                         names=['Failure','Sucess'],
                         title='Total Success Launches at VAFB SLC-4E Launch Site')
+                        fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16),
+                        fig.update_traces(textposition='inside', textfont_size=14, textfont_family="Arial Black")
                         return fig
     # return the outcomes piechart for a selected site
 
@@ -111,6 +132,7 @@ def update_chart(entered_site, slider_range):
     if entered_site == 'ALL':
         low, high = slider_range
         mask = (spacex_df['Payload Mass (kg)'] > low) & (spacex_df['Payload Mass (kg)'] < high)
+        
         fig = px.scatter(spacex_df[mask], 
             y="class", 
             x="Payload Mass (kg)",
@@ -120,7 +142,9 @@ def update_chart(entered_site, slider_range):
 				"Booster Version Category":"Booster Version"
             },
             color="Booster Version Category", 
-            title='Total Success Rate by Site')
+            title='Total Success Rate by Site',
+            template="plotly_white")
+        fig.update_layout(title_font_size=30, legend_font_size=20, font_size=16)
         fig.update_yaxes(ticktext=["Failure", "Success"],tickvals=["0", "1"],)
         return fig
     else:
@@ -137,7 +161,8 @@ def update_chart(entered_site, slider_range):
 					"Booster Version Category":"Booster Version"
 				},
                 color="Booster Version Category", 
-                title='Total Success Rate at CCAFS LC-40 Launch Site')
+                title='Total Success Rate at CCAFS LC-40 Launch Site',
+                template="plotly_white")
             fig.update_yaxes(ticktext=["Failure", "Success"],tickvals=["0", "1"],)
             return fig
         else:
@@ -154,7 +179,8 @@ def update_chart(entered_site, slider_range):
 						"Booster Version Category":"Booster Version"
 					},
                     color="Booster Version Category", 
-                    title='Total Success Rate at CCAFS SLC-40 Launch Site')
+                    title='Total Success Rate at CCAFS SLC-40 Launch Site',
+                    template="plotly_white")
                 fig.update_yaxes(ticktext=["Failure", "Success"],tickvals=["0", "1"],)
                 return fig
             else:
@@ -171,7 +197,8 @@ def update_chart(entered_site, slider_range):
 							"Booster Version Category":"Booster Version"
 						},
                         color="Booster Version Category", 
-                        title='Total Success Rate at KSC LC-39A Launch Site')
+                        title='Total Success Rate at KSC LC-39A Launch Site',
+                        template="plotly_white")
                     fig.update_yaxes(ticktext=["Failure", "Success"],tickvals=["0", "1"],)
                     return fig
                 else:
@@ -188,7 +215,8 @@ def update_chart(entered_site, slider_range):
 								"Booster Version Category":"Booster Version"
 							},
                             color="Booster Version Category", 
-                            title='Total Success Rate at VAFB SLC-4E Launch Site')
+                            title='Total Success Rate at VAFB SLC-4E Launch Site',
+                            template="plotly_white")
                         fig.update_yaxes(ticktext=["Failure", "Success"],tickvals=["0", "1"],)
                         return fig
 
