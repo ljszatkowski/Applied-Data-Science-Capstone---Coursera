@@ -1,1 +1,1 @@
-This repository contain an IMB Applied Datascience Capstone project files from Coursera
+This repository contain an IBM Applied Datascience Capstone project files from Coursera
